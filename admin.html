@@ -342,11 +342,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="prod-image">Product Image</label>
-                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Tap to upload OR paste URL below:</p>
                                 <input type="file" id="prod-image" accept="image/*" capture="environment" onchange="handleAddImageUpload(this)" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border); border-radius: 8px; color: var(--text);">
                                 <img id="prod-image-preview" style="max-width: 100px; margin-top: 10px; display: none; border-radius: 8px;">
-                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">OR paste image URL:</p>
-                                <input type="url" id="prod-image-url" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border); border-radius: 8px; color: var(--text);">
                             </div>
                             <button type="submit" class="btn">Add Product</button>
                         </form>
@@ -383,11 +380,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-prod-image">Product Image</label>
-                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Tap to upload OR paste URL below:</p>
                                 <input type="file" id="edit-prod-image" accept="image/*" capture="environment" onchange="handleEditImageUpload(this)" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border); border-radius: 8px; color: var(--text);">
                                 <img id="edit-image-preview" style="max-width: 100px; margin-top: 10px; display: none; border-radius: 8px;">
-                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">OR paste image URL:</p>
-                                <input type="url" id="edit-prod-image-url" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 10px; background: var(--bg-color); border: 1px solid var(--border); border-radius: 8px; color: var(--text);">
                             </div>
                             <button type="submit" class="btn">Save Changes</button>
                         </form>
@@ -636,13 +630,10 @@
         // Form handlers
         document.getElementById('add-product-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Get image - prefer URL over file upload
+            // Get image from file upload
             let image = 'logo.png';
-            const imageUrl = document.getElementById('prod-image-url').value;
             const imagePreview = document.getElementById('prod-image-preview');
-            if (imageUrl) {
-                image = imageUrl;
-            } else if (imagePreview.src && imagePreview.style.display !== 'none') {
+            if (imagePreview.src && imagePreview.style.display !== 'none') {
                 image = imagePreview.src;
             }
             const newProduct = {
@@ -667,15 +658,12 @@
             const id = parseInt(document.getElementById('edit-prod-id').value);
             const index = adminProducts.findIndex(p => p.id === id);
             if (index > -1) {
-                // Get image - prefer uploaded file, then URL, then keep current
+                // Get image from file upload or keep current
                 let image = adminProducts[index].image;
-                const imageUrl = document.getElementById('edit-prod-image-url').value;
                 const imagePreview = document.getElementById('edit-image-preview');
                 
                 if (editImageUploaded && imagePreview.src && imagePreview.style.display !== 'none') {
                     image = imagePreview.src;
-                } else if (imageUrl) {
-                    image = imageUrl;
                 }
                 
                 adminProducts[index] = {
