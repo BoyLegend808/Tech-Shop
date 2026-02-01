@@ -150,7 +150,7 @@ function updateAuthUI() {
     if (user) {
       authLinks.style.display = "none";
       userGreeting.style.display = "inline";
-      userGreeting.textContent = `Hi, User`;
+      userGreeting.textContent = `Hi, ${user.name}`;
       logoutBtn.style.display = "inline-block";
     } else {
       authLinks.style.display = "flex";
