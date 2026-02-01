@@ -601,11 +601,9 @@
                 document.getElementById('edit-prod-category').value = product.category;
                 document.getElementById('edit-prod-price').value = product.price;
                 document.getElementById('edit-prod-desc').value = product.desc;
-                // Set current image URL in input
-                document.getElementById('edit-prod-image-url').value = product.image.startsWith('data:') ? '' : product.image;
                 // Set image preview
                 const editPreview = document.getElementById('edit-image-preview');
-                if (product.image && (product.image.startsWith('data:') || product.image.startsWith('http'))) {
+                if (product.image && (product.image.startsWith('data:') || product.image.startsWith('http') || !product.image.includes(' '))) {
                     editPreview.src = product.image;
                     editPreview.style.display = 'block';
                 } else {
