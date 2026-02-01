@@ -87,11 +87,18 @@
             const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
             if (hamburger && navLinks) {
-                hamburger.addEventListener('click', function(e) {
+                // Toggle menu function
+                const toggleMenu = function(e) {
+                    e.preventDefault();
                     e.stopPropagation();
                     hamburger.classList.toggle('active');
                     navLinks.classList.toggle('active');
-                });
+                    console.log('Hamburger clicked, active class:', hamburger.classList.contains('active'));
+                };
+                
+                // Support both click and touch events for mobile
+                hamburger.addEventListener('click', toggleMenu);
+                hamburger.addEventListener('touchstart', toggleMenu, {passive: false});
                 
                 // Close menu when clicking outside
                 document.addEventListener('click', function(e) {
@@ -110,6 +117,8 @@
                         navLinks.classList.remove('active');
                     });
                 });
+            } else {
+                console.error('Hamburger or navLinks not found!');
             }
         }
         

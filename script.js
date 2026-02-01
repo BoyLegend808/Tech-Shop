@@ -318,14 +318,20 @@ function setupHamburger() {
   console.log("Hamburger setup - navLinks:", navLinks);
 
   if (hamburger && navLinks) {
-    hamburger.addEventListener("click", (e) => {
+    // Toggle menu function
+    const toggleMenu = function(e) {
+      e.preventDefault();
       e.stopPropagation();
       console.log("Hamburger clicked!");
       hamburger.classList.toggle("active");
       navLinks.classList.toggle("active");
       console.log("Hamburger classes:", hamburger.classList);
       console.log("NavLinks classes:", navLinks.classList);
-    });
+    };
+    
+    // Support both click and touch events for mobile
+    hamburger.addEventListener("click", toggleMenu);
+    hamburger.addEventListener("touchstart", toggleMenu, {passive: false});
 
     // Close menu when clicking outside
     document.addEventListener("click", (e) => {
