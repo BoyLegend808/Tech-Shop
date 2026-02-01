@@ -567,13 +567,18 @@
 
         // Admin functions
         function showSection(section) {
+            console.log('showSection called with:', section);
             document.getElementById('section-products').style.display = section === 'products' ? 'block' : 'none';
             document.getElementById('section-orders').style.display = section === 'orders' ? 'block' : 'none';
             document.getElementById('section-add').style.display = section === 'add' ? 'block' : 'none';
             document.getElementById('section-edit').style.display = section === 'edit' ? 'block' : 'none';
-
+            
+            console.log('Section display updated');
+            
             document.querySelectorAll('.admin-sidebar li').forEach(li => li.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
 
         function renderAdminProducts() {
@@ -593,8 +598,10 @@
         }
 
         function editProduct(id) {
+            console.log('Edit clicked for product ID:', id);
             editImageUploaded = false; // Reset flag for new edit
             const product = adminProducts.find(p => p.id === id);
+            console.log('Found product:', product);
             if (product) {
                 document.getElementById('edit-prod-id').value = product.id;
                 document.getElementById('edit-prod-name').value = product.name;
@@ -603,6 +610,7 @@
                 document.getElementById('edit-prod-desc').value = product.desc;
                 // Set image preview
                 const editPreview = document.getElementById('edit-image-preview');
+                console.log('Image:', product.image);
                 if (product.image && (product.image.startsWith('data:') || product.image.startsWith('http') || !product.image.includes(' '))) {
                     editPreview.src = product.image;
                     editPreview.style.display = 'block';
@@ -610,6 +618,9 @@
                     editPreview.style.display = 'none';
                 }
                 showSection('edit');
+                console.log('Switched to edit section');
+            } else {
+                console.error('Product not found!');
             }
         }
 
